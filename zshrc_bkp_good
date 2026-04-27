@@ -1,0 +1,351 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+#ZSH_THEME="fino-time"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+plugins=(
+    git
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    web-search
+    fzf-tab
+    zsh-navigation-tools
+)
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+
+# Uncomment the following line to change how often to auto-update (in days).
+# zstyle ':omz:update' frequency 13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+# plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias python=python3
+# figlet -f ascii12.tlf Jyothu | lolcat
+alias lzy=lazygit
+alias cat=batcat
+
+
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+  --color=fg:#ffffff,fg+:#d0d0d0,bg:#121212,bg+:#262626
+  --color=hl:#5f87af,hl+:#5fd7ff,info:#afaf87,marker:#87ff00
+  --color=prompt:#d7005f,spinner:#af5fff,pointer:#af5fff,header:#87afaf
+  --color=border:#262626,query:#d9d9d9
+  --border="rounded" --preview-window="border-rounded" --prompt="> "
+  --marker=">" --pointer="◆"
+  --height 40%
+   --layout="reverse-list"
+   '
+alias ff='vim $(fzf --height 40%)'
+alias fr='file=$(fzf --height 40%) && vim -R $file'
+alias emx="emacsclient -s /tmp/emacs$(id -u)/server -t"
+alias wrk1="/mnt/Linux_22.04_home/arun/ivau_plai-iveia/+ai/wrk_spc"
+alias wrk="~/vitis_ai/vitis-ai-person-dt-yolov3.iveia"
+alias vooya="~/Dowloads/vooya-x86_64.AppImage"
+alias vooya=/home/arun-jyothish/Downloads/vooya-x86_64.AppImage
+alias idoc=/home/arun-jyothish/vitis_ai/work_ln/WRK/ivau_plai_docs/7_Tech_Ref/References
+alias rg=ranger
+# alias fk='okular "$(ls *.pdf | fzf)"'
+alias xs='xclip -sel clip' 
+alias lzd=/home/arun-jyothish/go/bin/lazydocker
+
+# Ensure fzf installed in PC, and Source it if it Exists
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Bind Ctrl+R to fzf reverse search
+fzf_history_search() {
+    local selected
+    # selected=$(fc -rl 1 | fzf --reverse --height=40% --prompt="Reverse-i-search> ")
+    selected=$(fc -rl 1 | fzf --height=40% --prompt="Reverse-i-search> ")
+    if [[ -n $selected ]]; then
+	    LBUFFER=$(echo $selected | sed 's/^[ ]*[0-9]*[ ]*//')
+    fi
+    zle redisplay
+}
+zle -N fzf_history_search
+bindkey '^R' fzf_history_search
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+
+# ranger cd on exit
+function ranger() {
+	command ranger "$@"
+	cd "$(cat ~/.config/ranger/lastdir 2> /dev/null || echo $PWD)"
+}
+
+c2c() {
+	local var="$1"
+	echo "$var" | xclip -sel clip; echo -e "\ncopied to clipboard!! ";
+}
+
+xss () {
+	local var=$1
+	prev_clip="/tmp/prev_clip"
+	curr_clip="/tmp/curr_clip"
+	diff_clip="/tmp/diff_clip"
+
+	if [ -e "$curr_clip" ]; then
+		cat "$curr_clip" > $prev_clip
+	else
+		touch $curr_clip
+	fi
+	echo "" >> $prev_clip
+	tail -n $(wc $prev_clip -l) $curr_clip > $diff_clip
+}
+
+commit-bring-up () {
+	~/Downloads/wrk-commit.sh
+}
+
+fk () {
+	# var=$(fzf)
+	file=$(find -type f -iname "*.pdf" 2> /dev/null | fzf)
+	if [ $? -ne 0 ]; then
+		echo "No files selected"
+	else
+		echo $file
+		okular "$file" &
+	fi
+}
+alias db="cd /home/arun-jyothish/rough/iveia/jtag_test; openocd -f interface/jlink.cfg -f target/imx8mp.cfg"
+
+PATH=$PATH:~/.local/bin
+
+alias serial0="minicom usb0"
+alias serial1="minicom usb1"
+
+dk () {
+	xhost +local:root	# x11 forward
+	docker run -it \
+		-e DISPLAY=$DISPLAY \
+		-v /tmp/.X11-unix:/tmp/.X11-unix \
+		-v $(pwd):/shared \
+		-w /shared \
+		--device /dev/dri \
+		--device /dev/snd \
+		ubuntu:main-wrk zsh
+}
+# --name gui-container \
+
+export_orin_nano_dev () {
+	export ARCH=arm64
+	export LOCALVERSION=-tegra
+	export CROSS_COMPILE=/mnt/DATA_PARTITION/aarch64--glibc--stable-2022.08-1/usr/bin/aarch64-buildroot-linux-gnu-
+	export KERNEL_DIR=/home/arun-jyothish/wrk/trms_m10_host_mipi_driver-5.15-tegra/Jetson-Orin-Nano/kernel/kernel-jammy-src
+
+	export OOT_SRC=/home/arun-jyothish/wrk/trms_m10_host_mipi_driver-5.15-tegra/Jetson-Orin-Nano/kernel/nvidia-oot
+
+	echo -e "\033[33m!! Exported Environment Variables !!\033[36m"
+	echo " " 
+	echo ARCH		: $ARCH
+	echo LOCALVERSION	: $LOCALVERSION
+	echo KERNEL_DIR		: $KERNEL_DIR
+	echo CROSS_COMPILE	: $CROSS_COMPILE
+	echo OOT_SRC		: $OOT_SRC
+	echo " " 
+	echo -e "\033[0m"
+}
+
+export ANDROID_HOME=$HOME/Android
+export PATH=$ANDROID_HOME/cmdline-tools/tools/bin:$ANDROID_HOME/platform-tools:$PATH
+
+
+# // Add; python -m site
+# export PYTHONPATH=/usr/lib/python3/dist-packages:$PYTHONPATH
+#
+#
+
+iveia_pc=192.168.5.33
+
+function dct_ftp_mount () {
+	DCThostIP=192.168.5.100 
+
+	# mount fs
+	curlftpfs $DCThostIP DCT_FTP_MOUNT 
+}
+
+jo () {
+	# cd ~/rough/env/.env/bin/activate
+	# AI-personal Assistant Options
+	export OLLAMA_URL=http://$iveia_pc:11434
+	/home/arun-jyothish/rough/env/.env/bin/oterm
+
+}
+
+eiwa () {
+	# docker run -it ollama:updated zsh
+	# tgpt env
+	# export OPENAI_API_BASE=http://$iveia_pc:11434/v1
+	# export OPENAI_API_KEY=ollama
+	# tgpt -m codellama
+	export OLLAMA_HOST=$iveia_pc:11434
+	ollama run codellama
+}
+
+knock () {
+	# docker run -it ollama:updated zsh
+	# tgpt env
+	export OPENAI_API_BASE=http://localhost:11434/v1
+	export OPENAI_API_KEY=ollama
+	tgpt -m codellama
+}
+
+# local ai-console
+oterm () {
+	/home/arun-jyothish/rough/env/.env/bin/oterm
+}
+
+emacs_30.2 () {
+	/home/arun-jyothish/Downloads/emacs-30.2/src/emacs
+}
+
+# chromium kiosk browser; full screen; no transparency bg run; clean for presentation
+cf () {
+  if [ $# -eq 0 ]; then
+    echo "Usage: cf <file1.html> [file2.html ...]"
+    return 1
+  fi
+
+  for f in "$@"; do
+    file=$(realpath "$f")
+    profile="/tmp/chrome-$(date +%s%N)-$RANDOM"
+
+    # Create temporary wrapper
+    wrapper="/tmp/cf-wrap-$(date +%s%N)-$RANDOM.html"
+
+    cat > "$wrapper" <<EOF
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+iframe {
+  border: none;
+  width: 100%;
+  height: 100%;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+</style>
+</head>
+<body>
+  <iframe src="file://$file"></iframe>
+</body>
+</html>
+EOF
+
+chromium \
+	--class=cf-chromium \
+	--kiosk "file://$wrapper" \
+	--user-data-dir="$profile" \
+	--no-first-run \
+	--no-default-browser-check \
+	--disable-background-networking \
+	--log-level=3 \
+	2>/dev/null &
+done
+}
