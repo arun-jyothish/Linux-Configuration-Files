@@ -1,0 +1,357 @@
+;; -*- mode: emacs-lisp; lexical-binding: t -*-
+;; Optimized Spacemacs configuration
+;; Author: arun-jyothish | Generated: 2026-04-27
+
+;;; ============================================================
+;;; LAYERS
+;;; ============================================================
+
+(defun dotspacemacs/layers ()
+  (setq-default
+   dotspacemacs-distribution 'spacemacs
+   dotspacemacs-enable-lazy-installation 'unused
+   dotspacemacs-ask-for-lazy-installation t
+   dotspacemacs-configuration-layer-path '()
+
+   dotspacemacs-configuration-layers
+   '(auto-completion
+     emacs-lisp
+     helm
+     markdown
+     multiple-cursors
+     org
+     which-key
+     spell-checking
+     syntax-checking
+     treemacs
+     html
+     javascript
+     ;; python layer (once, not duplicated)
+     (python :variables
+             python-backend 'lsp
+             python-lsp-server 'pyright)
+     ;; LSP with sane defaults
+     (lsp :variables
+          lsp-enable-on-type-formatting nil
+          lsp-prefer-flymake nil
+          lsp-idle-delay 0.5)
+     ;; C/C++ via LSP
+     (c-c++ :variables
+            c-c++-backend 'lsp-clangd)
+     ;; Undo tree with region support
+     (undo-tree :variables
+                undo-tree-enable-undo-in-region t)
+     ;; Shell at bottom
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom
+            shell-default-shell 'vterm))
+
+   dotspacemacs-additional-packages
+   '(klere-theme
+     darkokai-theme
+     vs-dark-theme
+     doom-themes
+     rainbow-mode
+     vterm
+     magit
+     plantuml-mode)
+
+   ;; NOTE: removed duplicate 'python', 'undo-tree', 'spacemacs-theme',
+   ;; 'python-mode' (superseded by python layer), and 'vs-dark-theme' duplicate.
+
+   dotspacemacs-frozen-packages '()
+   dotspacemacs-excluded-packages '()
+   dotspacemacs-install-packages 'used-only
+
+   dotspacemacs/elpa-archives
+   '(("melpa" . "https://melpa.org/packages/")
+     ("gnu"   . "https://elpa.gnu.org/packages/")
+     ("org"   . "https://orgmode.org/elpa/"))))
+
+;;; ============================================================
+;;; INIT
+;;; ============================================================
+
+(defun dotspacemacs/init ()
+  (setq-default
+   ;; --- Performance ---
+   dotspacemacs-gc-cons '(100000000 0.1)
+   dotspacemacs-read-process-output-max (* 1024 1024) ; 1 MB — helps LSP
+
+   ;; --- Editing style ---
+   dotspacemacs-editing-style 'emacs
+
+   ;; --- Appearance ---
+   dotspacemacs-themes '(darkokai vs-dark spacemacs-dark spacemacs-light)
+   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
+   dotspacemacs-colorize-cursor-according-to-state t
+   dotspacemacs-default-font '("Fira Code" :size 12 :weight bold :width normal)
+   dotspacemacs-mode-line-unicode-symbols t
+   dotspacemacs-startup-banner "~/.emacs.d/fox-hacker.png"
+   dotspacemacs-startup-banner-scale 'auto
+   dotspacemacs-startup-buffer-show-version t
+   dotspacemacs-startup-buffer-show-icons nil
+   dotspacemacs-startup-buffer-show-logo nil
+
+   ;; --- Startup lists ---
+   dotspacemacs-startup-lists '((recents . 5) (projects . 7))
+   dotspacemacs-startup-buffer-responsive t
+   dotspacemacs-show-startup-list-numbers t
+   dotspacemacs-startup-buffer-multi-digit-delay 0.4
+
+   ;; --- Frame ---
+   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-fullscreen-at-startup nil
+   dotspacemacs-fullscreen-use-non-native nil
+   dotspacemacs-undecorated-at-startup nil
+   dotspacemacs-active-transparency 90
+   dotspacemacs-inactive-transparency 70
+   dotspacemacs-background-transparency 64
+   dotspacemacs-frame-title-format "%I@%S"
+   dotspacemacs-icon-title-format nil
+
+   ;; --- Scratch / buffers ---
+   dotspacemacs-scratch-mode 'org-mode
+   dotspacemacs-scratch-buffer-persistent nil
+   dotspacemacs-scratch-buffer-unkillable nil
+   dotspacemacs-initial-scratch-message nil
+   dotspacemacs-new-empty-buffer-major-mode 'text-mode
+   dotspacemacs-large-file-size 1
+
+   ;; --- Keys ---
+   dotspacemacs-leader-key "SPC"
+   dotspacemacs-emacs-command-key "SPC"
+   dotspacemacs-ex-command-key ":"
+   dotspacemacs-emacs-leader-key "M-m"
+   dotspacemacs-major-mode-leader-key ","
+   dotspacemacs-major-mode-emacs-leader-key (if window-system "<M-return>" "C-M-m")
+   dotspacemacs-distinguish-gui-tab nil
+   dotspacemacs-use-SPC-as-y nil
+
+   ;; --- Layouts ---
+   dotspacemacs-default-layout-name "Default"
+   dotspacemacs-display-default-layout nil
+   dotspacemacs-auto-resume-layouts nil
+   dotspacemacs-auto-generate-layout-names nil
+
+   ;; --- Editing behaviour ---
+   fill-column 80
+   tab-width 4                ; 4 is more standard; override per-mode below
+   indent-tabs-mode nil       ; prefer spaces globally, override for C/C++
+   visual-line-mode t
+   dotspacemacs-smart-closing-parenthesis t
+   dotspacemacs-activate-smartparens-mode t
+   dotspacemacs-smartparens-strict-mode nil
+   dotspacemacs-highlight-delimiters 'all
+   dotspacemacs-folding-method 'evil
+   dotspacemacs-show-trailing-whitespace t
+   dotspacemacs-whitespace-cleanup 'trailing  ; clean trailing whitespace on save
+
+   ;; --- Scrolling ---
+   dotspacemacs-smooth-scrolling t
+   dotspacemacs-scroll-bar-while-scrolling nil
+   scroll-bar-mode -1
+
+   ;; --- Line numbers ---
+   dotspacemacs-line-numbers nil
+
+   ;; --- Saving ---
+   dotspacemacs-auto-save-file-location 'cache
+   dotspacemacs-max-rollback-slots 5
+
+   ;; --- Which-key ---
+   dotspacemacs-which-key-delay 0.4
+   dotspacemacs-which-key-position 'bottom
+
+   ;; --- Misc ---
+   dotspacemacs-elpa-https t
+   dotspacemacs-elpa-timeout 5
+   dotspacemacs-elpa-subdirectory 'emacs-version
+   dotspacemacs-use-spacelpa nil
+   dotspacemacs-verify-spacelpa-archives t
+   dotspacemacs-check-for-update nil
+   dotspacemacs-enable-emacs-pdumper nil
+   dotspacemacs-emacs-pdumper-executable-file "emacs"
+   dotspacemacs-emacs-dumper-dump-file (format "spacemacs-%s.pdmp" emacs-version)
+   dotspacemacs-enable-paste-transient-state nil
+   dotspacemacs-switch-to-buffer-prefers-purpose nil
+   dotspacemacs-loading-progress-bar t
+   dotspacemacs-show-transient-state-title t
+   dotspacemacs-show-transient-state-color-guide t
+   dotspacemacs-use-clean-aindent-mode t
+   dotspacemacs-swap-number-row nil
+   dotspacemacs-zone-out-when-idle nil
+   dotspacemacs-pretty-docs t
+   dotspacemacs-home-shorten-agenda-source nil
+   dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
+   dotspacemacs-enable-server nil
+   dotspacemacs-server-socket-dir nil
+   dotspacemacs-persistent-server nil
+   dotspacemacs-byte-compile nil))
+
+;;; ============================================================
+;;; USER ENV
+;;; ============================================================
+
+(defun dotspacemacs/user-env ()
+  (spacemacs/load-spacemacs-env))
+
+;;; ============================================================
+;;; USER INIT  (runs before layer config, before packages load)
+;;; ============================================================
+
+(defun dotspacemacs/user-init ()
+  ;; Set Python interpreter early so layers pick it up
+  (setq python-shell-interpreter "/usr/local/bin/python3")
+  ;; Suppress org export sub/superscript unless braced
+  (setq org-export-with-sub-superscripts nil))
+
+;;; ============================================================
+;;; USER LOAD  (only called when dumping)
+;;; ============================================================
+
+(defun dotspacemacs/user-load ()
+  (add-to-list 'custom-theme-load-path "~/emacs-themes"))
+
+;;; ============================================================
+;;; HELPERS
+;;; ============================================================
+
+(defun my/copy-to-clipboard ()
+  "Copy active region to system clipboard via xclip."
+  (interactive)
+  (if (use-region-p)
+      (call-process-region (region-beginning) (region-end)
+                           "xclip" nil nil nil "-selection" "clipboard")
+    (message "No region selected")))
+
+(defun my/set-tab-style (width &optional use-tabs)
+  "Set tab width and optionally use real tabs."
+  (setq-local tab-width width)
+  (setq-local indent-tabs-mode (if use-tabs t nil)))
+
+;;; ============================================================
+;;; USER CONFIG  (runs after all layers are loaded)
+;;; ============================================================
+
+(defun dotspacemacs/user-config ()
+
+  ;; ----------------------------------------------------------
+  ;; Indentation per mode  (tab-width 8 + real tabs for C/C++)
+  ;; ----------------------------------------------------------
+  (dolist (hook '(c-mode-hook c++-mode-hook))
+    (add-hook hook (lambda () (my/set-tab-style 8 t))))
+
+  (dolist (hook '(markdown-mode-hook text-mode-hook org-mode-hook))
+    (add-hook hook (lambda () (my/set-tab-style 4 nil))))
+
+  ;; ----------------------------------------------------------
+  ;; Undo-tree
+  ;; ----------------------------------------------------------
+  (require 'undo-tree)
+  (global-undo-tree-mode 1)
+  ;; Persist undo history between sessions
+  (setq undo-tree-auto-save-history t
+        undo-tree-history-directory-alist
+        `(("." . ,(concat spacemacs-cache-directory "undo-tree-history/"))))
+
+  ;; ----------------------------------------------------------
+  ;; UI
+  ;; ----------------------------------------------------------
+  (scroll-bar-mode -1)
+  (spacemacs/enable-transparency)
+
+  ;; Custom startup banner text (shown after image)
+  (with-eval-after-load 'core-banner
+    (setq spacemacs-banner-text '("   [ H a c k  T h e  P l a n e t ]")))
+
+  ;; ----------------------------------------------------------
+  ;; Org mode
+  ;; ----------------------------------------------------------
+  (with-eval-after-load 'org
+    ;; Open file types with the right external programs
+    (setq org-file-apps
+          '((auto-mode  . emacs)
+            ("\\.pdf\\'" . "okular %s")
+            ("\\.png\\'" . "gwenview %s")
+            ("\\.mp4\\'" . "vlc %s")))
+
+    ;; PlantUML
+    (setq org-plantuml-jar-path
+          "/home/arun-jyothish/.apps/plantuml/plantuml-web/plantuml.jar"
+          org-plantuml-exec-mode 'jar)
+
+    ;; Babel languages
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((python     . t)
+       (java       . t)
+       (plantuml   . t)
+       (emacs-lisp . t)
+       (C          . t)
+       (shell      . t)))
+
+    ;; Skip confirmation prompts for code blocks
+    (setq org-confirm-babel-evaluate nil))
+
+  ;; ----------------------------------------------------------
+  ;; Browser
+  ;; ----------------------------------------------------------
+  (setq browse-url-generic-program "qutebrowser"
+        browse-url-browser-function 'browse-url-generic)
+
+  ;; ----------------------------------------------------------
+  ;; Keybindings
+  ;; ----------------------------------------------------------
+  (global-set-key (kbd "C-c i") #'imenu)
+  (global-set-key (kbd "C-c y") #'my/copy-to-clipboard))
+
+;;; ============================================================
+;;; EMACS CUSTOM SETTINGS  (auto-generated — do not edit)
+;;; ============================================================
+
+(defun dotspacemacs/emacs-custom-settings ()
+  (custom-set-variables
+   '(ansi-color-faces-vector
+     [default bold shadow italic underline bold bold-italic bold])
+   '(ansi-color-names-vector
+     ["#242728" "#ff0066" "#63de5d" "#E6DB74" "#06d8ff" "#ff8eff" "#53f2dc" "#f8fbfc"])
+   '(compilation-message-face 'default)
+   '(custom-safe-themes
+     '("adbcf269aaae0e40c9d30c244f8a7dc64d4ae719a2ff9e6c46931212cb3d4ee0"
+       "3b002b40a2e1f3c56ae89ae0baf90e0e5d5c3fcb4cde5cdeab0978773251c987" default))
+   '(evil-want-Y-yank-to-eol nil)
+   '(frame-brackground-mode 'dark)
+   '(highlight-changes-colors '("#ff8eff" "#ab7eff"))
+   '(highlight-tail-colors
+     '(("#323342" . 0) ("#63de5d" . 20) ("#4BBEAE" . 30) ("#1DB4D0" . 50)
+       ("#9A8F21" . 60) ("#A75B00" . 70) ("#F309DF" . 85) ("#323342" . 100)))
+   '(hl-sexp-background-color "#1c1f26")
+   '(hl-todo-keyword-faces
+     '(("TODO"  . "#dc752f") ("NEXT"  . "#dc752f") ("THEM"  . "#2d9574")
+       ("PROG"  . "#4f97d7") ("OKAY"  . "#4f97d7") ("DONT"  . "#f2241f")
+       ("FAIL"  . "#f2241f") ("DONE"  . "#86dc2f") ("NOTE"  . "#b1951d")
+       ("KLUDGE". "#b1951d") ("HACK"  . "#b1951d") ("TEMP"  . "#b1951d")
+       ("FIXME" . "#dc752f") ("XXX+" . "#dc752f")  ("\\?\\?\\?+" . "#dc752f")))
+   '(ignored-local-variable-values
+     '((eval and buffer-file-name (not (eq major-mode 'package-recipe-mode))
+             (or (require 'package-recipe-mode nil t)
+                 (let ((load-path (cons "../package-build" load-path)))
+                   (require 'package-recipe-mode nil t)))
+             (package-recipe-mode))))
+   '(ispell-dictionary nil)
+   '(magit-diff-use-overlays nil)
+   '(org-fontify-done-headline nil)
+   '(org-fontify-todo-headline nil)
+   '(org-safe-remote-resources '("\\`https://xilinx\\.github\\.io\\(?:/\\|\\'\\)"))
+   '(pdf-view-midnight-colors '("#b2b2b2" . "#262626"))
+   '(pos-tip-background-color "#E6DB74")
+   '(pos-tip-foreground-color "#242728")
+   '(warning-suppress-log-types '(((ox-latex))))
+   '(warning-suppress-types '(((ox-latex))))
+   '(weechat-color-list
+     (unspecified "#242728" "#323342" "#F70057" "#ff0066" "#86C30D" "#63de5d"
+                  "#BEB244" "#E6DB74" "#40CAE4" "#06d8ff" "#FF61FF" "#ff8eff"
+                  "#00b2ac" "#53f2dc" "#f8fbfc" "#ffffff")))
+  (custom-set-faces))
